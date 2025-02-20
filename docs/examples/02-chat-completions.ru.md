@@ -139,7 +139,7 @@ func main() {
     var full string
     for {
         // Вызов функции чтения потока данных
-        line, err := deepseek.ReadStream(reader)
+		part, err := deepseek.ReadStream(reader)
         if errors.Is(err, io.EOF) {
             // Конец потока данных
             break
@@ -148,7 +148,7 @@ func main() {
             // Обработка ошибки
             break
         }
-        for _, choice := range line.Choices {
+        for _, choice := range part.Choices {
             // Агрегация всех чанков в одно сообщение
             full += choice.Delta.Content
         }

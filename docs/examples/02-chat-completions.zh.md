@@ -25,7 +25,7 @@ func main() {
         // 处理错误
     }
 
-	// 创建请求对象
+    // 创建请求对象
     req := &deepseek.ChatCompletionsRequest{
         Messages: []deepseek.ChatCompletionsMessage{
             {
@@ -135,16 +135,16 @@ func main() {
     // 处理流数据
     var full string
     for {
-        line, err := deepseek.ReadStream(reader)
+        part, err := deepseek.ReadStream(reader)
         if errors.Is(err, io.EOF) {
             // 流结束
-			break
+            break
         }
         if err != nil {
             // 处理错误
             break
         }
-        for _, choice := range line.Choices {
+        for _, choice := range part.Choices {
             // 聚合分块内容
             full += choice.Delta.Content
         }
