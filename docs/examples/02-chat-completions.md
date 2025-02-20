@@ -136,7 +136,7 @@ func main() {
     // Process stream
     var full string
     for {
-        line, err := deepseek.ReadStream(reader)
+        part, err := deepseek.ReadStream(reader)
         if errors.Is(err, io.EOF) {
             // End of stream
             break
@@ -145,7 +145,7 @@ func main() {
             // Handle error
             break
         }
-        for _, choice := range line.Choices {
+        for _, choice := range part.Choices {
             // Aggregate chunks
             full += choice.Delta.Content
         }
